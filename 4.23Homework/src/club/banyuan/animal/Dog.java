@@ -1,5 +1,5 @@
 package club.banyuan.animal;
-import club.banyuan.animal.Cat;
+
 public class Dog{
     private String name;
    public String getName() {

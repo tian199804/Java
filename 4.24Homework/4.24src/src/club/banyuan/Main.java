@@ -1,5 +1,5 @@
 package club.banyuan;
-import club.banyuan.Main;
+import club.banyuan.Person;
 
 public class Main {
 
