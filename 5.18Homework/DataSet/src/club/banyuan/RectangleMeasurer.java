@@ -1,9 +1,9 @@
 package club.banyuan;
 
-public class RectangleMeasurer implements Measurer {
+public class RectangleMeasurer implements Measurer<Rectangle>{
 
   @Override
-  public double measure(Object anObject) {
+  public double measure(Rectangle anObject) {
     if (anObject instanceof Rectangle) {
       Rectangle rectangle = (Rectangle) anObject;
       return rectangle.width * rectangle.height;

@@ -1,23 +1,23 @@
 package club.banyuan;
 
-public class DataSet {
+public class DataSet<T> {
 
   private double sum;
   private int count;
   private Object maximum;
-  private Measurer measurer;
+  private Measurer<T> measurer;
 
   public DataSet() {
   }
 
-  public DataSet(Measurer aMeasurer) {
+  public DataSet(Measurer<T> aMeasurer) {
     sum = 0;
     count = 0;
     maximum = null;
     measurer = aMeasurer;
   }
 
-  public void add(Object x) {
+  public void add(T x) {
     if (x instanceof Measurable) {
       add((Measurable) x);
     } else {
@@ -25,9 +25,9 @@ public class DataSet {
     }
   }
 
-  private void addByMeasurer(Object x) {
+  private void addByMeasurer(T x) {
     sum = sum + measurer.measure(x);
-    if (count == 0 || measurer.measure(maximum) < measurer.measure(x)) {
+    if (count == 0 || measurer.measure((T)maximum) < measurer.measure(x)) {
       maximum = x;
     }
     count++;
@@ -48,8 +48,8 @@ public class DataSet {
     return sum / count;
   }
 
-  public Object getMaximum() {
-    return maximum;
+  public T getMaximum() {
+    return (T)maximum;
   }
 
 
