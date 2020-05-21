@@ -43,12 +43,12 @@ public class Calculator {
     switch (tokens.length) {
       case 0:
         // TODO: complete the
-        throw new IllegalInputException("Illegal Token Length")
+        throw new IllegalInputException("Illegal Token Length");
 
       case 1:
         // 只有一种情况，用户输入 quit
         // TODO: complete the cases
-        if(QUIT.equalsIgnoreCase(takens[0])){
+        if(QUIT.equalsIgnoreCase(tokens[0])){
           throw new QuitException("Quiting\n"+"Thanks");
     }
     throw new IllegalInputException("Illegal Argument");
