@@ -1,5 +1,7 @@
 package club.banyuan;
 
+import org.junit.Assert;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Iterator;
@@ -12,10 +14,14 @@ public class PointUtils {
   public static Point highestPoint(List<Point> points) {
     /* 这等效于实验室中提到的初始化步骤。 */
     Iterator<Point> pointIterator = points.iterator();
-     while(pointIterator.hasNext()){
-       Point point=pointIterator.next();
-       if(point)
-     }
+    Point maxPoint = points.get(0);
+    while (pointIterator.hasNext()) {
+      Point point = pointIterator.next();
+      if (point.getY() > maxPoint.getY()) {
+        maxPoint = point;
+      }
+    }
+
    // 方案一
     // Point rlt=points.get(0);
    // for (Point point:points){
@@ -24,7 +30,7 @@ public class PointUtils {
    // }
 
     // TODO 使用迭代器完成此方法!
-    return null;
+    return maxPoint;
   }
 
   /**
@@ -32,10 +38,20 @@ public class PointUtils {
    */
   public static Point centroid(List<Point> points) {
     Iterator<Point> pointIterator = points.iterator();
+    int sumX=0;
+    int sumY=0;
+    int count=0;
     // TODO 使用迭代器完成此方法!
-    return null;
-  }
+    while(pointIterator.hasNext()){
+      Point temp=pointIterator.next();
+      sumX +=temp.getX();
+      sumY +=temp.getY();
+      count++;
 
+    }
+    return new Point(sumX/count,sumY/count);
+  }
+@org.junit.Test
   public void test() {
     List<Point> points = new LinkedList<>();
     points.add(new Point(1, 1));
@@ -47,10 +63,12 @@ public class PointUtils {
     System.out.println(highestPoint(points));
     // TODO 编写一个单元测试
     // assert 结果是[x = 3，y = 3] 或  [x = 1，y = 3]中的一个
+  Assert.assertEquals(points.get(1).toString(),highestPoint(points).toString());
 
     // 应该是Point[x=2,y=2]
     System.out.println(centroid(points));
     // TODO 编写一个单元测试测试结果
+  Assert.assertEquals("Point{x=2,y=2}",centroid(points).toString());
 
     points = new LinkedList<Point>();
     points.add(new Point(1, 1));
@@ -62,9 +80,10 @@ public class PointUtils {
     System.out.println(highestPoint(points));
     // TODO 编写一个单元测试
     // assert 结果是[x=1,y=1] 或  [x=-1,y=1]中的一个
-
+Assert.assertEquals(points.get(0).toString(),highestPoint(points).toString());
     // 应该是[x=0,y=0]
     System.out.println(centroid(points));
     // TODO 编写一个单元测试测试结果
+  Assert.assertEquals("Point{x=0,y=0}", centroid(points).toString());
   }
 }

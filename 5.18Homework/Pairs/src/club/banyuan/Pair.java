@@ -1,20 +1,25 @@
 package club.banyuan;
 
-public class Pair {
+public class Pair<T> {
 
-  private Object first;
-  private Object second;
+  private T first;
+  private T second;
 
-  public Pair(Object firstElement, Object secondElement) {
+  public Pair(T firstElement, T secondElement) {
     first = firstElement;
     second = secondElement;
   }
 
-  public Object getFirst() {
+  public T getFirst() {
     return first;
   }
 
-  public Object getSecond() {
+  public T getSecond() {
     return second;
+  }
+  public void swap(){
+    T temp =first;
+    first=second;
+    second=temp;
   }
 }

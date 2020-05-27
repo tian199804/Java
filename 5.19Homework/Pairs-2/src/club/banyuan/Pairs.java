@@ -1,13 +1,21 @@
 package club.banyuan;
+import  java.util.Iterator;
 
 public class Pairs<K, V> implements Iterable<Pair<K, V>> {
 
   /* 声明一对对象的固定大小的数组（最多10个元素） */
+  private final  Pair<K,V>[] pairs;
+  private int size;
+  private static final int CAPACITY=10;
+
 
   /**
    * 创建一个集合，该集合将存储成对添加的项目。
    */
+  @SuppressWarnings("unchecked")
   public Pairs() {
+    pairs=new Pair[CAPACITY];
+    size=0;
   }
 
   /**
@@ -17,6 +25,10 @@ public class Pairs<K, V> implements Iterable<Pair<K, V>> {
    * @param second The second object.
    */
   public boolean addPair(K first, V second) {
+    if (size == CAPACITY){
+      return false;
+    }
+    pairs[size++]=new Pair<>(first, second);
     return true;
   }
 
@@ -32,10 +44,15 @@ public class Pairs<K, V> implements Iterable<Pair<K, V>> {
    * 按照规定抛出异常
    */
   private class PairIterator implements Iterator<Pair<K, V>> {
+    private int index;
+
+    public PairIterator() {
+      index = 0;
+    }
 
     @Override
     public boolean hasNext() {
-      throw new UnsupportedOperationException();
+      return index < size;
     }
 
     /**
@@ -43,6 +60,9 @@ public class Pairs<K, V> implements Iterable<Pair<K, V>> {
      */
     @Override
     public Pair<K, V> next() {
+      if (hasNext()) {
+        return pairs[index++];
+      }
       throw new UnsupportedOperationException();
     }
 
@@ -51,8 +71,14 @@ public class Pairs<K, V> implements Iterable<Pair<K, V>> {
      */
     @Override
     public void remove() {
-      throw new UnsupportedOperationException();
+      if (index == size) {
+        pairs[--size] = null;
+      } else if (index < size) {
+        System.arraycopy(pairs, index, pairs, index - 1, size - index);
+        pairs[--size] = null;
+      } else {
+        throw new UnsupportedOperationException();
+      }
     }
   }
-
 }

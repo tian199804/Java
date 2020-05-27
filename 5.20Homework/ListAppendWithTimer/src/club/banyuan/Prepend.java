@@ -1,5 +1,7 @@
 package club.banyuan;
-
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 /**
  * 比较在基于数组的列表和基于链表的列表的第一个元素前插入n个值所需的时间
  * <p>
@@ -19,9 +21,67 @@ package club.banyuan;
  * d.停止计时器
  * e.显示时间
  */
-public class Prepend {
+public class Prepend implements Timer {
 
   public static void main(String args[]) {
+    long startTime;
+     long stopTime;
+     long time;
+     boolean stopStatus = false;
+     boolean startStatus = false;
+    public void start() throws IllegalStateException {
+      if (startStatus && !stopStatus) {
+        throw new IllegalStateException();
+      }
+      time = 0;
+      startStatus = true;
+      startTime = System.currentTimeMillis();
+    }
 
+
+
+    public void stop() throws IllegalStateException {
+      if (!startStatus) {
+        throw new IllegalStateException();
+      }
+      stopStatus = true;
+      stopTime = System.currentTimeMillis();
+      time = stopTime - startTime;
+
+    }
+
+
+    public void reset() {
+      time = 0;
+
+    }
+
+
+    public long getTimeMillisecond() {
+      return time;
+    }
   }
-}
+
+
+
+
+
+  public static void main (String args[]){
+      LinkedList<Intrger> linkedList = new LinkedList<>();
+      ArrayList<Integer> arrayList = new ArrayList<>();
+      calTime("ArrayList", arrayList, 10000);
+      calTime("LinkedList", linkedList, 10000);
+
+    }
+    public static void calTime (String name, List < Integer > list,int num){
+      Timer timer = new Prepend();
+      timer.start();
+      for (int i = 0; i < num; i++) {
+        list.add(0, i);
+      }
+      timer.stop();
+      System.out.println(name + "在第一个元素前添加：" + timer.getTimeMillisecond());
+      timer.reset();
+    }
+  }
+
